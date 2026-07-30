@@ -1,0 +1,37 @@
+<div class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Signed in as <%= user.role %></p>
+    <h1>Welcome back, <%= user.name.split(' ')[0] %></h1>
+    <p>Catch up on what the association's been talking about, or start a new thread.</p>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,30 C150,55 350,5 600,25 C850,45 1050,10 1200,30 L1200,60 L0,60 Z"></path>
+    <path class="tideline" d="M0,30 C150,55 350,5 600,25 C850,45 1050,10 1200,30"></path>
+  </svg>
+</div>
+
+<h2>Categories</h2>
+<div class="grid">
+  <% categories.forEach(cat => { %>
+    <a class="category-card" href="/category/<%= cat.id %>">
+      <h3><%= cat.name %></h3>
+      <p><%= cat.description %></p>
+    </a>
+  <% }) %>
+</div>
+
+<h2 style="margin-top:30px;">Recent Activity</h2>
+<div class="card">
+  <% recentPosts.forEach(p => { %>
+    <div class="post-item post-item-flex">
+      <span class="avatar avatar-sm" style="background:<%= avatarColor(p.author_name) %>"><%= initials(p.author_name) %></span>
+      <div>
+        <a href="/post/<%= p.id %>"><strong><%= p.title %></strong></a>
+        <div class="post-meta">by <%= p.author_name %> in <%= p.category_name %> &middot; <%= timeAgo(p.created_at) %></div>
+      </div>
+    </div>
+  <% }) %>
+  <% if (recentPosts.length === 0) { %><p>No posts yet.</p><% } %>
+</div>
+
+<a class="btn" href="/post/new">+ Create New Post</a>

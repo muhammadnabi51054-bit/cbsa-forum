@@ -1,0 +1,24 @@
+<div class="card" style="max-width:640px;margin:0 auto;">
+  <h2>Create a New Post</h2>
+  <% if (error) { %><div class="error-box"><%= error %></div><% } %>
+  <form class="stack wide" method="POST" action="/post/new">
+    <div>
+      <label>Category</label>
+      <select name="category_id" required>
+        <option value="">-- Select category --</option>
+        <% categories.forEach(cat => { %>
+          <option value="<%= cat.id %>" <%= old.category_id == cat.id ? 'selected' : '' %>><%= cat.name %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div>
+      <label>Title</label>
+      <input type="text" name="title" value="<%= old.title || '' %>" required>
+    </div>
+    <div>
+      <label>Content</label>
+      <textarea name="content" required><%= old.content || '' %></textarea>
+    </div>
+    <button type="submit">Publish Post</button>
+  </form>
+</div>

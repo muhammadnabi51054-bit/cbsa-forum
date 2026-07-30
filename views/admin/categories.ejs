@@ -1,0 +1,36 @@
+<h1>Manage Categories</h1>
+<div class="tabs">
+  <a href="/admin">Overview</a>
+  <a href="/admin/users">Manage Users</a>
+  <a href="/admin/posts">Manage Posts</a>
+  <a href="/admin/categories">Manage Categories</a>
+</div>
+
+<% if (error) { %><div class="error-box"><%= error %></div><% } %>
+
+<div class="card" style="max-width:520px;">
+  <h3>Add New Category</h3>
+  <form method="POST" action="/admin/categories" class="stack">
+    <input type="text" name="name" placeholder="Category name" required>
+    <textarea name="description" placeholder="Description" style="min-height:70px;"></textarea>
+    <button type="submit">Add Category</button>
+  </form>
+</div>
+
+<table>
+  <thead><tr><th>Name</th><th>Description</th><th>Posts</th><th>Actions</th></tr></thead>
+  <tbody>
+    <% categories.forEach(c => { %>
+      <tr>
+        <td><%= c.name %></td>
+        <td><%= c.description %></td>
+        <td><%= c.post_count %></td>
+        <td>
+          <form method="POST" action="/admin/categories/<%= c.id %>/delete" onsubmit="return confirm('Delete this category and all its posts?');">
+            <button class="btn-danger" type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

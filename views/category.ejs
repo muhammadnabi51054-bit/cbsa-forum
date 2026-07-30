@@ -1,0 +1,50 @@
+<p class="breadcrumb"><a href="/">Home</a> <span>/</span> <%= category.name %></p>
+
+<div class="category-header">
+  <h1><%= category.name %></h1>
+  <p class="cat-desc-lg"><%= category.description %></p>
+</div>
+
+<% if (user) { %><a class="btn" href="/post/new" style="margin-bottom:18px;display:inline-block;">+ New Topic</a><% } %>
+
+<div class="forum-index">
+  <table class="forum-table">
+    <thead>
+      <tr>
+        <th class="col-main">Topic</th>
+        <th class="col-num">Replies</th>
+        <th class="col-num">Views</th>
+        <th class="col-last">Last Post</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (posts.length === 0) { %>
+        <tr><td colspan="4" class="empty-row">No topics in this category yet. <% if (user) { %><a href="/post/new">Start the first one</a><% } %></td></tr>
+      <% } %>
+      <% posts.forEach(p => { %>
+        <tr>
+          <td class="col-main">
+            <div class="topic-row">
+              <span class="avatar avatar-sm" style="background:<%= avatarColor(p.author_name) %>"><%= initials(p.author_name) %></span>
+              <div>
+                <a href="/post/<%= p.id %>" class="cat-name"><%= p.title %></a>
+                <div class="cat-desc">started by <%= p.author_name %> &middot; <%= timeAgo(p.created_at) %></div>
+              </div>
+            </div>
+          </td>
+          <td class="col-num"><%= p.reply_count %></td>
+          <td class="col-num"><%= p.views %></td>
+          <td class="col-last">
+            <div class="last-post">
+              <span class="avatar avatar-sm" style="background:<%= avatarColor(p.last_author) %>"><%= initials(p.last_author) %></span>
+              <div>
+                <div class="last-title"><%= p.last_author %></div>
+                <div class="last-meta"><%= timeAgo(p.last_activity) %></div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,17 @@
+<div class="card" style="max-width:480px;margin:0 auto;">
+  <h2>Login to CBSA Forum</h2>
+  <% if (error) { %><div class="error-box"><%= error %></div><% } %>
+  <form class="stack" method="POST" action="/login">
+    <div>
+      <label>Email</label>
+      <input type="email" name="email" value="<%= old.email || '' %>" required>
+    </div>
+    <div>
+      <label>Password</label>
+      <input type="password" name="password" required>
+    </div>
+    <button type="submit">Login</button>
+  </form>
+  <p style="margin-top:14px;font-size:0.9rem;">No account yet? <a href="/register">Register here</a></p>
+  <p style="font-size:0.8rem;color:#888;">Demo admin: admin@cbsa.com / Admin@123<br>Demo user: rafiul@example.com / User@123</p>
+</div>

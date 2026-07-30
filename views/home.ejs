@@ -1,0 +1,75 @@
+<div class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">CBSA · est. this forum</p>
+    <h1>Where CBSA members talk, ask, and help each other out</h1>
+    <p>Admissions questions, job leads, scholarship tips, event news — one place for every student who calls Cox's Bazar home.</p>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,30 C150,55 350,5 600,25 C850,45 1050,10 1200,30 L1200,60 L0,60 Z"></path>
+    <path class="tideline" d="M0,30 C150,55 350,5 600,25 C850,45 1050,10 1200,30"></path>
+  </svg>
+</div>
+
+<div class="stats-strip">
+  <div class="stat-chip"><strong><%= forumStats.memberCount %></strong><span>Members</span></div>
+  <div class="stat-chip"><strong><%= forumStats.topicCount %></strong><span>Topics</span></div>
+  <div class="stat-chip"><strong><%= forumStats.postCount %></strong><span>Posts</span></div>
+  <div class="stat-chip stat-chip-wide">
+    <span class="stat-label">Newest Member</span>
+    <strong><%= forumStats.newestMember ? forumStats.newestMember.name : '—' %></strong>
+  </div>
+</div>
+
+<div class="forum-index">
+  <table class="forum-table">
+    <thead>
+      <tr>
+        <th class="col-main">Category</th>
+        <th class="col-num">Topics</th>
+        <th class="col-num">Posts</th>
+        <th class="col-last">Last Post</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% categories.forEach(cat => { %>
+        <tr>
+          <td class="col-main">
+            <a href="/category/<%= cat.id %>" class="cat-name"><%= cat.name %></a>
+            <p class="cat-desc"><%= cat.description %></p>
+          </td>
+          <td class="col-num"><%= cat.topic_count || 0 %></td>
+          <td class="col-num"><%= cat.post_count || 0 %></td>
+          <td class="col-last">
+            <% if (cat.last_post_id) { %>
+              <div class="last-post">
+                <span class="avatar avatar-sm" style="background:<%= avatarColor(cat.last_author) %>"><%= initials(cat.last_author) %></span>
+                <div>
+                  <a href="/post/<%= cat.last_post_id %>" class="last-title"><%= cat.last_title %></a>
+                  <div class="last-meta"><%= cat.last_author %> &middot; <%= timeAgo(cat.last_time) %></div>
+                </div>
+              </div>
+            <% } else { %>
+              <span class="no-activity">No topics yet</span>
+            <% } %>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<h2 style="margin-top:34px;">Latest Discussions</h2>
+<div class="card">
+  <% if (recentPosts.length === 0) { %>
+    <p>No posts yet. <% if (user) { %><a href="/post/new">Be the first to post!</a><% } else { %>Login to post.<% } %></p>
+  <% } %>
+  <% recentPosts.forEach(p => { %>
+    <div class="post-item post-item-flex">
+      <span class="avatar avatar-sm" style="background:<%= avatarColor(p.author_name) %>"><%= initials(p.author_name) %></span>
+      <div>
+        <a href="/post/<%= p.id %>"><strong><%= p.title %></strong></a>
+        <div class="post-meta">by <%= p.author_name %> in <%= p.category_name %> &middot; <%= timeAgo(p.created_at) %></div>
+      </div>
+    </div>
+  <% }) %>
+</div>

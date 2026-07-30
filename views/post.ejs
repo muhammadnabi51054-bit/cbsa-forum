@@ -1,0 +1,59 @@
+<p class="breadcrumb">
+  <a href="/">Home</a> <span>/</span>
+  <a href="/category/<%= post.category_id %>"><%= post.category_name %></a> <span>/</span>
+  <%= post.title %>
+</p>
+
+<h1 class="thread-title"><%= post.title %></h1>
+<div class="thread-meta-bar">
+  <span><%= post.views + 1 %> views</span>
+  <span>&middot;</span>
+  <span><%= comments.length %> repl<%= comments.length === 1 ? 'y' : 'ies' %></span>
+</div>
+
+<div class="thread-post">
+  <div class="thread-post-side">
+    <span class="avatar avatar-lg" style="background:<%= avatarColor(post.author_name) %>"><%= initials(post.author_name) %></span>
+    <div class="thread-author-name"><%= post.author_name %></div>
+    <span class="badge <%= post.author_role %>"><%= post.author_role %></span>
+  </div>
+  <div class="thread-post-body">
+    <div class="thread-post-meta"><%= timeAgo(post.created_at) %></div>
+    <p class="thread-content"><%= post.content %></p>
+
+    <% if (user && (user.id === post.user_id || user.role === 'admin')) { %>
+      <form method="POST" action="/post/<%= post.id %>/delete" onsubmit="return confirm('Delete this post?');">
+        <button class="btn-danger" type="submit">Delete Post</button>
+      </form>
+    <% } %>
+  </div>
+</div>
+
+<h3 style="margin-top:30px;"><%= comments.length %> Repl<%= comments.length === 1 ? 'y' : 'ies' %></h3>
+
+<% comments.forEach(c => { %>
+  <div class="thread-post thread-reply">
+    <div class="thread-post-side">
+      <span class="avatar avatar-lg" style="background:<%= avatarColor(c.author_name) %>"><%= initials(c.author_name) %></span>
+      <div class="thread-author-name"><%= c.author_name %></div>
+      <span class="badge <%= c.author_role %>"><%= c.author_role %></span>
+    </div>
+    <div class="thread-post-body">
+      <div class="thread-post-meta"><%= timeAgo(c.created_at) %></div>
+      <p class="thread-content"><%= c.content %></p>
+    </div>
+  </div>
+<% }) %>
+<% if (comments.length === 0) { %><p class="card" style="color:var(--ink-soft);">No replies yet — be the first to respond.</p><% } %>
+
+<div class="card" style="margin-top:20px;">
+  <% if (user) { %>
+    <h3 style="margin-top:0;">Post a Reply</h3>
+    <form method="POST" action="/post/<%= post.id %>/comment" class="stack wide">
+      <textarea name="content" placeholder="Write a reply..." required></textarea>
+      <button type="submit" style="width:fit-content;">Reply</button>
+    </form>
+  <% } else { %>
+    <p style="margin:0;"><a href="/login">Login</a> to leave a reply.</p>
+  <% } %>
+</div>

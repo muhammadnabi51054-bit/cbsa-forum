@@ -1,0 +1,38 @@
+<h1>Manage Users</h1>
+<div class="tabs">
+  <a href="/admin">Overview</a>
+  <a href="/admin/users">Manage Users</a>
+  <a href="/admin/posts">Manage Posts</a>
+  <a href="/admin/categories">Manage Categories</a>
+</div>
+
+<table>
+  <thead>
+    <tr><th>Name</th><th>Email</th><th>Batch</th><th>Role</th><th>Joined</th><th>Actions</th></tr>
+  </thead>
+  <tbody>
+    <% users.forEach(u => { %>
+      <tr>
+        <td style="display:flex;align-items:center;gap:10px;">
+          <span class="avatar avatar-sm" style="background:<%= avatarColor(u.name) %>"><%= initials(u.name) %></span>
+          <%= u.name %>
+        </td>
+        <td><%= u.email %></td>
+        <td><%= u.batch || '-' %></td>
+        <td><span class="badge <%= u.role %>"><%= u.role %></span></td>
+        <td><%= new Date(u.created_at).toLocaleDateString() %></td>
+        <td>
+          <form method="POST" action="/admin/users/<%= u.id %>/role" class="inline-form">
+            <select name="role" onchange="this.form.submit()">
+              <option value="user" <%= u.role === 'user' ? 'selected' : '' %>>user</option>
+              <option value="admin" <%= u.role === 'admin' ? 'selected' : '' %>>admin</option>
+            </select>
+          </form>
+          <form method="POST" action="/admin/users/<%= u.id %>/delete" class="inline-form" onsubmit="return confirm('Delete this user?');">
+            <button class="btn-danger" type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

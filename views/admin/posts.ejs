@@ -1,0 +1,28 @@
+<h1>Manage Posts</h1>
+<div class="tabs">
+  <a href="/admin">Overview</a>
+  <a href="/admin/users">Manage Users</a>
+  <a href="/admin/posts">Manage Posts</a>
+  <a href="/admin/categories">Manage Categories</a>
+</div>
+
+<table>
+  <thead>
+    <tr><th>Title</th><th>Author</th><th>Category</th><th>Created</th><th>Actions</th></tr>
+  </thead>
+  <tbody>
+    <% posts.forEach(p => { %>
+      <tr>
+        <td><a href="/post/<%= p.id %>"><%= p.title %></a></td>
+        <td><%= p.author_name %></td>
+        <td><%= p.category_name %></td>
+        <td><%= new Date(p.created_at).toLocaleDateString() %></td>
+        <td>
+          <form method="POST" action="/admin/posts/<%= p.id %>/delete" onsubmit="return confirm('Delete this post?');">
+            <button class="btn-danger" type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

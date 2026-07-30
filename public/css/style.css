@@ -1,0 +1,499 @@
+/* ============================================================
+   CBSA Forum — Design tokens
+   Palette inspired by the tidal geography of Cox's Bazar: deep
+   bay water, wet-sand shoreline, and the coral/sunset accent
+   that shows up over the water at dusk. Not a beach postcard —
+   a working, legible forum with one coastal signature motif
+   (the horizon/wave divider) used sparingly.
+   ============================================================ */
+:root {
+  --bay-deep:   #0B3D57;   /* primary — deep bay water   */
+  --bay-mid:    #146C94;   /* secondary — mid-tide blue  */
+  --sand:       #F3ECDD;   /* page background — wet sand */
+  --sand-line:  #E4D6B8;   /* borders / hairlines        */
+  --foam:       #FFFFFF;   /* card surfaces              */
+  --coral:      #E4633B;   /* accent — dusk coral        */
+  --ink:        #1C2431;   /* body text                  */
+  --ink-soft:   #5B6472;   /* secondary text             */
+  --radius:     14px;
+  --radius-sm:  8px;
+  --shadow: 0 1px 2px rgba(11,61,87,0.06), 0 6px 20px rgba(11,61,87,0.07);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--sand);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--bay-deep);
+}
+
+a { color: var(--bay-mid); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ---------------- Navbar ---------------- */
+.navbar {
+  background: var(--bay-deep);
+  padding: 0 20px;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.nav-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 62px;
+  position: relative;
+}
+
+.brand {
+  color: #fff;
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  font-size: 1.08rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: -0.01em;
+}
+.brand:hover { text-decoration: none; opacity: 0.92; }
+
+/* Signature mark: a small horizon — sand below, bay above,
+   coral sun on the line. Doubles as a favicon-like anchor. */
+.brand-mark {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background:
+    radial-gradient(circle at 50% 42%, var(--coral) 0 5px, transparent 5.5px),
+    linear-gradient(to bottom, var(--bay-mid) 0% 50%, var(--sand) 50% 100%);
+  box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.25);
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+nav a, nav .who, .link-btn {
+  color: #DCEAF2;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: background 0.15s, color 0.15s;
+}
+nav a:hover { background: rgba(255,255,255,0.1); text-decoration: none; color: #fff; }
+
+nav .who { color: rgba(255,255,255,0.6); font-weight: 400; }
+nav .who em { font-style: normal; color: var(--coral); }
+
+.admin-link {
+  background: var(--coral) !important;
+  color: #fff !important;
+}
+.admin-link:hover { background: #cf532c !important; }
+
+.link-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+}
+
+.inline-form { display: inline; }
+
+.nav-toggle { display: none; }
+.nav-burger { display: none; cursor: pointer; padding: 8px; }
+.nav-burger span {
+  display: block; width: 22px; height: 2px; background: #fff;
+  margin: 5px 0; border-radius: 2px; transition: 0.2s;
+}
+
+/* ---------------- Layout ---------------- */
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 32px 20px 60px;
+  min-height: 60vh;
+}
+
+.card {
+  background: var(--foam);
+  border: 1px solid var(--sand-line);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  box-shadow: var(--shadow);
+  margin-bottom: 18px;
+}
+
+/* ---------------- Hero + signature wave ---------------- */
+.hero {
+  background: linear-gradient(135deg, var(--bay-deep), var(--bay-mid));
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 44px 36px 0;
+  margin-bottom: 30px;
+  overflow: hidden;
+  position: relative;
+}
+.hero-inner { padding-bottom: 30px; max-width: 640px; }
+.hero .eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #FFC9A8;
+  margin: 0 0 10px;
+}
+.hero h1 {
+  color: #fff;
+  margin: 0 0 12px;
+  font-size: 2rem;
+  line-height: 1.15;
+}
+.hero p { margin: 0; opacity: 0.85; font-size: 1.02rem; max-width: 52ch; }
+
+/* The horizon: a thin coral tideline sitting on a soft wave path,
+   the one recurring signature element of the whole design. */
+.hero-wave {
+  display: block;
+  width: 100%;
+  height: 46px;
+  margin-top: 24px;
+}
+.hero-wave path { fill: var(--sand); }
+.hero-wave .tideline {
+  fill: none;
+  stroke: var(--coral);
+  stroke-width: 2;
+  opacity: 0.8;
+}
+
+/* ---------------- Category grid ---------------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.category-card {
+  display: block;
+  background: var(--foam);
+  border: 1px solid var(--sand-line);
+  border-left: 4px solid var(--bay-mid);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  box-shadow: var(--shadow);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.category-card:hover {
+  transform: translateY(-3px);
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(11,61,87,0.14);
+}
+.category-card h3 { margin: 0 0 6px; font-size: 1.08rem; }
+.category-card p { margin: 0 0 10px; color: var(--ink-soft); font-size: 0.9rem; }
+.post-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--coral);
+  font-weight: 500;
+}
+
+/* ---------------- Posts / comments ---------------- */
+.post-item { border-bottom: 1px solid var(--sand-line); padding: 14px 0; }
+.post-item:last-child { border-bottom: none; }
+.post-meta { color: var(--ink-soft); font-size: 0.84rem; margin-top: 3px; }
+
+.comment { background: var(--sand); border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 10px; }
+.comment-meta { font-size: 0.78rem; color: var(--ink-soft); }
+
+/* ---------------- Forms ---------------- */
+form.stack { display: flex; flex-direction: column; gap: 14px; max-width: 480px; }
+form.stack.wide { max-width: 100%; }
+
+label { font-weight: 600; font-size: 0.88rem; color: var(--bay-deep); }
+
+input[type=text], input[type=email], input[type=password], textarea, select {
+  padding: 11px 13px;
+  border: 1px solid var(--sand-line);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  width: 100%;
+  font-family: inherit;
+  background: var(--foam);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--bay-mid);
+  box-shadow: 0 0 0 3px rgba(20,108,148,0.15);
+}
+
+textarea { min-height: 140px; resize: vertical; }
+
+button, .btn {
+  background: var(--bay-deep);
+  color: #fff;
+  border: none;
+  padding: 11px 20px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: inline-block;
+  transition: background 0.15s, transform 0.1s;
+}
+button:hover, .btn:hover { background: var(--bay-mid); text-decoration: none; }
+button:active, .btn:active { transform: translateY(1px); }
+
+.btn-danger { background: var(--coral); }
+.btn-danger:hover { background: #cf532c; }
+
+.error-box {
+  background: #FBE4DC;
+  color: #9A3412;
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 14px;
+  font-size: 0.9rem;
+  border: 1px solid #F3C1AC;
+}
+
+/* ---------------- Tables (admin) ---------------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--foam);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+th, td {
+  text-align: left;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--sand-line);
+  font-size: 0.88rem;
+}
+th {
+  background: var(--bay-deep);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.badge {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.badge.admin { background: var(--coral); color: #fff; }
+.badge.user { background: var(--bay-mid); color: #fff; }
+
+/* ---------------- Admin stats ---------------- */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 22px; }
+.stat-box {
+  background: var(--foam);
+  border: 1px solid var(--sand-line);
+  border-radius: var(--radius);
+  padding: 22px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.stat-box .num { font-family: 'Fraunces', serif; font-size: 2.1rem; font-weight: 600; color: var(--bay-deep); }
+.stat-box div:last-child { color: var(--ink-soft); font-size: 0.85rem; margin-top: 2px; }
+
+.tabs { margin-bottom: 18px; display: flex; gap: 6px; flex-wrap: wrap; }
+.tabs a {
+  font-weight: 600;
+  font-size: 0.88rem;
+  padding: 7px 14px;
+  border-radius: 20px;
+  background: var(--foam);
+  border: 1px solid var(--sand-line);
+  color: var(--bay-deep);
+}
+.tabs a:hover { background: var(--bay-deep); color: #fff; text-decoration: none; }
+
+.site-footer {
+  text-align: center;
+  padding: 26px 20px;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  border-top: 1px solid var(--sand-line);
+}
+
+/* ---------------- Mobile responsiveness ---------------- */
+@media (max-width: 760px) {
+  .nav-burger { display: block; }
+
+  nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bay-deep);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+    box-shadow: var(--shadow);
+  }
+  nav a, nav .who, .inline-form { width: 100%; }
+  nav a, .link-btn { padding: 12px 20px; border-radius: 0; }
+  nav .who { padding: 10px 20px; display: block; }
+
+  .nav-toggle:checked ~ nav { max-height: 420px; }
+
+  .hero h1 { font-size: 1.5rem; }
+  .hero { padding: 30px 22px 0; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+
+/* ============================================================
+   Forum-index additions: stats strip, category/thread tables,
+   avatars, breadcrumbs, and the two-column thread view.
+   ============================================================ */
+
+/* ---- Stats strip (Members / Topics / Posts / Newest Member) ---- */
+.stats-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 1.6fr;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+.stat-chip {
+  background: var(--foam);
+  border: 1px solid var(--sand-line);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.stat-chip strong {
+  display: block;
+  font-family: 'Fraunces', serif;
+  font-size: 1.4rem;
+  color: var(--bay-deep);
+}
+.stat-chip span { font-size: 0.76rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.04em; }
+.stat-chip-wide { text-align: left; }
+.stat-chip-wide .stat-label { display: block; font-size: 0.7rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 3px; }
+.stat-chip-wide strong { font-size: 1rem; }
+
+/* ---- Avatars ---- */
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #fff;
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.avatar-sm { width: 34px; height: 34px; font-size: 0.78rem; }
+.avatar-lg { width: 52px; height: 52px; font-size: 1.05rem; }
+
+/* ---- Forum index / thread-list table ---- */
+.forum-index { overflow-x: auto; }
+.forum-table { min-width: 640px; }
+.forum-table th.col-num, .forum-table td.col-num { text-align: center; width: 80px; }
+.forum-table th.col-last, .forum-table td.col-last { width: 230px; }
+.forum-table td.col-main { min-width: 260px; }
+
+.cat-name { font-weight: 600; color: var(--bay-deep); font-size: 1rem; }
+.cat-desc { margin: 3px 0 0; color: var(--ink-soft); font-size: 0.84rem; }
+
+.topic-row { display: flex; align-items: center; gap: 12px; }
+
+.last-post { display: flex; align-items: center; gap: 10px; }
+.last-title { font-size: 0.88rem; font-weight: 600; color: var(--ink); display: block; }
+.last-meta { font-size: 0.78rem; color: var(--ink-soft); }
+.no-activity { color: var(--ink-soft); font-size: 0.85rem; font-style: italic; }
+.empty-row { text-align: center; color: var(--ink-soft); padding: 24px !important; }
+
+.post-item-flex { display: flex; align-items: center; gap: 12px; }
+
+/* ---- Breadcrumb ---- */
+.breadcrumb {
+  font-size: 0.86rem;
+  color: var(--ink-soft);
+  margin: 0 0 16px;
+}
+.breadcrumb span { margin: 0 6px; }
+
+.category-header { margin-bottom: 8px; }
+.cat-desc-lg { color: var(--ink-soft); margin: 0 0 18px; }
+
+/* ---- Thread / single post view ---- */
+.thread-title { margin-bottom: 6px; }
+.thread-meta-bar {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  margin-bottom: 18px;
+  display: flex;
+  gap: 8px;
+}
+
+.thread-post {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 20px;
+  background: var(--foam);
+  border: 1px solid var(--sand-line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px;
+  margin-bottom: 14px;
+}
+.thread-reply { background: #FBF8F0; }
+
+.thread-post-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+.thread-author-name { font-weight: 600; font-size: 0.88rem; color: var(--bay-deep); }
+
+.thread-post-meta { color: var(--ink-soft); font-size: 0.8rem; margin-bottom: 10px; }
+.thread-content { white-space: pre-wrap; margin: 0 0 14px; }
+
+@media (max-width: 620px) {
+  .thread-post { grid-template-columns: 1fr; }
+  .thread-post-side { flex-direction: row; justify-content: flex-start; }
+  .stats-strip { grid-template-columns: repeat(2, 1fr); }
+  .stat-chip-wide { grid-column: span 2; }
+  .forum-table th.col-last, .forum-table td.col-last { display: none; }
+}

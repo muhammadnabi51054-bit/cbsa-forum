@@ -1,0 +1,26 @@
+<h1>Admin Dashboard</h1>
+<div class="tabs">
+  <a href="/admin">Overview</a>
+  <a href="/admin/users">Manage Users</a>
+  <a href="/admin/posts">Manage Posts</a>
+  <a href="/admin/categories">Manage Categories</a>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-box">
+    <div class="num"><%= stats.userCount %></div>
+    <div>Registered Users</div>
+  </div>
+  <div class="stat-box">
+    <div class="num"><%= stats.postCount %></div>
+    <div>Total Posts</div>
+  </div>
+  <div class="stat-box">
+    <div class="num"><%= stats.categoryCount %></div>
+    <div>Categories</div>
+  </div>
+</div>
+
+<div class="card">
+  <p>Welcome to the CBSA Forum admin panel. From here you can manage member accounts, moderate posts, and organize discussion categories.</p>
+</div>
